@@ -1,0 +1,28 @@
+[versions]
+lifecycle-version = '2.5.1'
+coroutines-version = "1.6.1"
+dagger-version = "2.41"
+retrofit-version = "2.9.0"
+nav-version = "2.5.1"
+
+[libraries]
+lifecycle-viewmodel-ktx = { group = 'androidx.lifecycle', name = 'lifecycle-viewmodel-ktx', version.ref = 'lifecycle_version' }
+lifecycle-runtime-ktx = { group = 'androidx.lifecycle', name = 'lifecycle-runtime-ktx', version.ref = 'lifecycle_version' }
+
+coroutines-core = { group = 'org.jetbrains.kotlinx', name = 'kotlinx-coroutines-core', version.ref = 'coroutines-version' }
+coroutines-android = { group = 'org.jetbrains.kotlinx', name = 'kotlinx-coroutines-android', version.ref = 'coroutines-version' }
+
+dagger-android = { group = 'com.google.dagger', name = 'dagger', version.ref = 'dagger-version' }
+dagger-compiler = { group = 'com.google.dagger', name = 'dagger-compiler', version.ref = 'dagger-version' }
+
+retrofit = { group = 'com.squareup.retrofit2', name = 'retrofit', version.ref = 'retrofit-version' }
+gson = { group = 'com.squareup.retrofit2', name = 'converter-gson', version.ref = 'retrofit-version' }
+
+navigation-fragment-ktx = { group = 'androidx.navigation', name = 'navigation-fragment-ktx', version.ref = 'nav-version' }
+navigation-ui-ktx = { group = 'androidx.navigation', name = 'navigation-ui-ktx', version.ref = 'nav-version' }
+
+[bundles]
+lifecycle = ['lifecycle-viewmodel-ktx', 'lifecycle-runtime-ktx']
+coroutines = ['coroutines-core', 'coroutines-android']
+retrofit = ['retrofit', 'gson']
+navigation = ['navigation-fragment-ktx', 'navigation-ui-ktx']
