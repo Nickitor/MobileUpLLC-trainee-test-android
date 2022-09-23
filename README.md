@@ -1,5 +1,7 @@
 # MobileUpLLC-trainee-test-android
 
+Трекер задач: https://peppermint-twig-d02.notion.site/MobileUpLLC-trainee-test-android-3fca9a4ac1e14e5d9dd372a831a5753b
+
 Задачи (540 мин = 9 ч)
 1. Подготовка (30 мин)
   a. Настроить проект (10 мин)
