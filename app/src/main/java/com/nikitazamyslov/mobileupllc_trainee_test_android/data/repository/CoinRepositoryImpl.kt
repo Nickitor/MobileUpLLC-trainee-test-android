@@ -9,8 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
-class CoinRepositoryImpl(private val api: ICoinApi) : ICoinRepository {
+class CoinRepositoryImpl @Inject constructor(private val api: ICoinApi) : ICoinRepository {
 
     override suspend fun getCoinList(currency: String): Flow<ApiResponse<List<CoinPrice>>> {
         return flow {

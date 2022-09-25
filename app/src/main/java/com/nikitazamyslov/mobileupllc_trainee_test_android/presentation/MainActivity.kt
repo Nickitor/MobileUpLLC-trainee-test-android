@@ -2,10 +2,10 @@ package com.nikitazamyslov.mobileupllc_trainee_test_android.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.nikitazamyslov.mobileupllc_trainee_test_android.R
 import com.nikitazamyslov.mobileupllc_trainee_test_android.databinding.ActivityMainBinding
-import com.nikitazamyslov.mobileupllc_trainee_test_android.databinding.FragmentCoinListBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
