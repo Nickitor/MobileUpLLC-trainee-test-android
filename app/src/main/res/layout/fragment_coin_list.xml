@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".presentation.coin_list_feature.CoinListFragment">
 
+    <ProgressBar
+        android:id="@+id/fragment_coin_list_progress_bar"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:indeterminateTint="@color/orange"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_coin_list_rv"
         android:layout_width="match_parent"

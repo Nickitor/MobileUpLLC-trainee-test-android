@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.nikitazamyslov.mobileupllc_trainee_test_android.R
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinPrice
 import java.util.*
@@ -37,6 +38,10 @@ class CoinListAdapter(private val dataSet: List<CoinPrice>) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+
+        Glide.with(viewHolder.icon)
+            .load(dataSet[position].image)
+            .into(viewHolder.icon)
 
         viewHolder.name.text = dataSet[position].name
         viewHolder.symbol.text = dataSet[position].symbol.uppercase(Locale.ROOT)

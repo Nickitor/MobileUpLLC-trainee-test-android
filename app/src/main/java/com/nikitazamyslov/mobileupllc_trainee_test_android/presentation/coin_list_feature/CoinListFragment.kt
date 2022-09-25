@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -24,9 +25,7 @@ class CoinListFragment : Fragment() {
     private val viewModel: CoinListViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCoinListBinding.inflate(inflater, container, false)
 
@@ -41,11 +40,14 @@ class CoinListFragment : Fragment() {
                 viewModel.state.collect { state ->
                     when (state) {
                         is ApiResponse.Loading -> {
+                            binding.fragmentCoinListProgressBar.visibility = ProgressBar.VISIBLE
                         }
                         is ApiResponse.Success -> {
+                            binding.fragmentCoinListProgressBar.visibility = ProgressBar.INVISIBLE
                             binding.fragmentCoinListRv.adapter = CoinListAdapter(state.data)
                         }
                         is ApiResponse.Error -> {
+                            binding.fragmentCoinListProgressBar.visibility = ProgressBar.INVISIBLE
                         }
                     }
                 }
