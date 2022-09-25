@@ -11,9 +11,11 @@ interface BaseRepository {
         try {
             val response = apiCall()
             if (response.isSuccessful) {
+                Log.e("Remote Api Service", "isSuccessful")
                 val body = response.body()
                 if (body != null) {
-                    return ApiResponse.success(body)
+                    Log.e("Remote Api Service", body.toString())
+                    return ApiResponse.Success(body)
                 }
             }
             return error("${response.code()} ${response.message()}")
@@ -23,7 +25,7 @@ interface BaseRepository {
     }
 
     private fun <T> error(message: String): ApiResponse<T> {
-        Log.e("remoteDataSource", message)
-        return ApiResponse.error("Network call has failed for a following reason: $message")
+        Log.e("Remote Api Service", message)
+        return ApiResponse.Error("Network call has failed for a following reason: $message")
     }
 }

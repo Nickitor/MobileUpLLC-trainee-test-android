@@ -14,9 +14,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -31,9 +34,20 @@ class AppModule {
     @Singleton
     fun providesGson(): Gson = GsonBuilder().setLenient().create()
 
+    @Singleton
+    @Provides
+    fun providesApiKeyInterceptor(): HttpLoggingInterceptor =
+        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)
+
     @Provides
     @Singleton
-    fun providesOkHttpClient(): OkHttpClient = OkHttpClient.Builder().build()
+    fun providesOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .build()
 
     @Provides
     @Singleton
@@ -51,8 +65,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideCoinRepository(coinApi: ICoinApi): ICoinRepository =
-        CoinRepositoryImpl(coinApi)
+    fun provideCoinRepository(coinApi: ICoinApi): ICoinRepository = CoinRepositoryImpl(coinApi)
 
     @Provides
     @Singleton
