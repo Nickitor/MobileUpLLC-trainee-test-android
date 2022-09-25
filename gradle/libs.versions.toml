@@ -1,7 +1,7 @@
 [versions]
 lifecycle-version = '2.5.1'
 coroutines-version = "1.6.1"
-dagger-version = "2.41"
+hilt-version = "2.41"
 retrofit-version = "2.9.0"
 nav-version = "2.5.1"
 
@@ -12,8 +12,8 @@ lifecycle-runtime-ktx = { group = 'androidx.lifecycle', name = 'lifecycle-runtim
 coroutines-core = { group = 'org.jetbrains.kotlinx', name = 'kotlinx-coroutines-core', version.ref = 'coroutines-version' }
 coroutines-android = { group = 'org.jetbrains.kotlinx', name = 'kotlinx-coroutines-android', version.ref = 'coroutines-version' }
 
-dagger-android = { group = 'com.google.dagger', name = 'dagger', version.ref = 'dagger-version' }
-dagger-compiler = { group = 'com.google.dagger', name = 'dagger-compiler', version.ref = 'dagger-version' }
+hilt-android = { group = 'com.google.dagger', name = 'hilt-android', version.ref = 'hilt-version' }
+hilt-compiler = { group = 'com.google.dagger', name = 'hilt-compiler', version.ref = 'hilt-version' }
 
 retrofit = { group = 'com.squareup.retrofit2', name = 'retrofit', version.ref = 'retrofit-version' }
 gson = { group = 'com.squareup.retrofit2', name = 'converter-gson', version.ref = 'retrofit-version' }

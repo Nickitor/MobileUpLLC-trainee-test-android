@@ -37,8 +37,8 @@ android {
 dependencies {
     implementation libs.bundles.lifecycle
     implementation libs.bundles.coroutines
-    implementation libs.dagger.android
+    implementation libs.hilt.android
     implementation libs.bundles.retrofit
     implementation libs.bundles.navigation
-    kapt libs.dagger.compiler
+    kapt libs.hilt.compiler
 }
