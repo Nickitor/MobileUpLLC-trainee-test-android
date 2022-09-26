@@ -65,7 +65,7 @@
             android:fontFamily="@font/roboto"
             android:textColor="@color/red"
             android:textSize="14sp"
-            tools:text="+4.05%" />
+            tools:text="+ 4.05%" />
 
     </LinearLayout>
 

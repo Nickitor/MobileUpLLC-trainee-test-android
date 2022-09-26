@@ -46,6 +46,7 @@ class CoinListFragment : Fragment(), OnItemClickListener {
                         }
                         is ApiResponse.Success -> {
                             binding.fragmentCoinListProgressBar.visibility = ProgressBar.INVISIBLE
+                            state.data.map { it.currency = "usd" }
                             binding.fragmentCoinListRv.adapter =
                                 CoinListAdapter(state.data, this@CoinListFragment)
                         }

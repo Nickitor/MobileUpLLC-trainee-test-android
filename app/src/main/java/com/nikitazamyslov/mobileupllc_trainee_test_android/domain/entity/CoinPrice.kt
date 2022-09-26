@@ -11,4 +11,5 @@ data class CoinPrice(
     val currentPrice: Double,
     @SerializedName("price_change_percentage_24h")
     val priceChangePercentage: Double,
+    var currency: String? = null
 )

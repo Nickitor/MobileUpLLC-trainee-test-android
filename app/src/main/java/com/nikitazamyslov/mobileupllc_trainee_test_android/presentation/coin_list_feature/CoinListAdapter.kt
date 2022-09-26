@@ -5,29 +5,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nikitazamyslov.mobileupllc_trainee_test_android.R
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinPrice
+import java.text.NumberFormat
 import java.util.*
+import kotlin.math.abs
 
 class CoinListAdapter(
     private val dataSet: List<CoinPrice>, private val itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<CoinListAdapter.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val icon: ImageView
-        val name: TextView
-        val symbol: TextView
-        val price: TextView
-        val percentage: TextView
+    private val priceFormat: NumberFormat = NumberFormat.getCurrencyInstance(Locale("es", "MX"))
+
+    inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+        private val icon: ImageView
+        private val name: TextView
+        private val symbol: TextView
+        private val price: TextView
+        private val percentage: TextView
 
         init {
-            icon = view.findViewById(R.id.item_coin_list_icon)
-            name = view.findViewById(R.id.item_coin_list_name)
-            symbol = view.findViewById(R.id.item_coin_list_symbol)
-            price = view.findViewById(R.id.item_coin_list_price)
-            percentage = view.findViewById(R.id.item_coin_list_percentage)
+            view.apply {
+                icon = findViewById(R.id.item_coin_list_icon)
+                name = findViewById(R.id.item_coin_list_name)
+                symbol = findViewById(R.id.item_coin_list_symbol)
+                price = findViewById(R.id.item_coin_list_price)
+                percentage = findViewById(R.id.item_coin_list_percentage)
+            }
         }
 
         fun bind(coin: CoinPrice, clickListener: OnItemClickListener) {
@@ -35,8 +42,18 @@ class CoinListAdapter(
 
             name.text = coin.name
             symbol.text = coin.symbol.uppercase(Locale.ROOT)
-            price.text = coin.currentPrice.toString()
-            percentage.text = coin.priceChangePercentage.toString()
+            price.text = priceFormat.format(coin.currentPrice).replace("$", "$ ")
+
+            val percentageStr = "${if (coin.priceChangePercentage > 0) "+" else "-"} ${
+                "%,.2f".format(Locale.ENGLISH, abs(coin.priceChangePercentage))
+            }%"
+            percentage.text = percentageStr
+            percentage.setTextColor(
+                ContextCompat.getColor(
+                    view.context,
+                    if (coin.priceChangePercentage >= 0) R.color.green else R.color.red
+                )
+            )
 
             itemView.setOnClickListener {
                 clickListener.onItemClicked(coin.id)
