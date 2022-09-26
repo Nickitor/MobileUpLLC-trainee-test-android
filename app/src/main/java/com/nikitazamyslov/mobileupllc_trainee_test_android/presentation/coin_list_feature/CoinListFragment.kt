@@ -11,14 +11,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.chip.Chip
 import com.nikitazamyslov.mobileupllc_trainee_test_android.R
 import com.nikitazamyslov.mobileupllc_trainee_test_android.databinding.FragmentCoinListBinding
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinPrice
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.wrapper.ApiResponse
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -29,14 +28,13 @@ class CoinListFragment : Fragment(), OnItemClickListener {
 
     private val viewModel: CoinListViewModel by viewModels()
 
-    private var currency = "usd"
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCoinListBinding.inflate(inflater, container, false)
         setObservers()
-        viewModel.getCoinList(currency)
+        setListeners()
+        viewModel.getCoinList()
         return binding.root
     }
 
@@ -50,6 +48,12 @@ class CoinListFragment : Fragment(), OnItemClickListener {
         }
     }
 
+    private fun setListeners() {
+        binding.chipGroupFilter.setOnCheckedChangeListener { group, checkedId ->
+            viewModel.currentCurrencyChanged((group.findViewById<Chip>(checkedId).text.toString()))
+        }
+    }
+
     private fun updateUi(state: ApiResponse<List<CoinPrice>>) {
         when (state) {
             is ApiResponse.Loading -> {
@@ -57,7 +61,7 @@ class CoinListFragment : Fragment(), OnItemClickListener {
             }
             is ApiResponse.Success -> {
                 binding.fragmentCoinListProgressBar.visibility = ProgressBar.INVISIBLE
-                state.data.map { it.currency = currency }
+                state.data.map { it.currency = viewModel.currency }
                 binding.fragmentCoinListRv.adapter =
                     CoinListAdapter(state.data, this@CoinListFragment)
             }

@@ -18,7 +18,8 @@ class CoinListAdapter(
     private val dataSet: List<CoinPrice>, private val itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<CoinListAdapter.ViewHolder>() {
 
-    private val priceFormat: NumberFormat = NumberFormat.getCurrencyInstance(Locale("es", "MX"))
+    private val priceFormatUSD: NumberFormat = NumberFormat.getCurrencyInstance(Locale("es", "MX"))
+    private val priceFormatEUR: NumberFormat = NumberFormat.getCurrencyInstance(Locale("en", "FR"))
 
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val icon: ImageView
@@ -42,7 +43,13 @@ class CoinListAdapter(
 
             name.text = coin.name
             symbol.text = coin.symbol.uppercase(Locale.ROOT)
-            price.text = priceFormat.format(coin.currentPrice).replace("$", "$ ")
+            price.text = when (coin.currency) {
+                "USD" -> priceFormatUSD
+                "EUR" -> priceFormatEUR
+                else -> {
+                    priceFormatUSD
+                }
+            }.format(coin.currentPrice)
 
             val percentageStr = "${if (coin.priceChangePercentage > 0) "+" else "-"} ${
                 "%,.2f".format(Locale.ENGLISH, abs(coin.priceChangePercentage))

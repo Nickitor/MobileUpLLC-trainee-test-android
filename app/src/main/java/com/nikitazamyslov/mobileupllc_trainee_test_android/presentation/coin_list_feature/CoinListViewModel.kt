@@ -9,6 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.util.Currency
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,12 +19,19 @@ class CoinListViewModel @Inject constructor(private val getCoinListUseCase: GetC
     private var _state: MutableSharedFlow<ApiResponse<List<CoinPrice>>> = MutableSharedFlow(1)
     val state get() = _state
 
-    fun getCoinList(currency: String) {
+    var currency = "USD"
+
+    fun getCoinList() {
         viewModelScope.launch {
             _state.emit(ApiResponse.Loading)
             getCoinListUseCase.getCoinListUseCase(currency).collect { coinList ->
                 _state.emit(coinList)
             }
         }
+    }
+
+    fun currentCurrencyChanged(newCurrency: String) {
+        currency = newCurrency
+        getCoinList()
     }
 }
