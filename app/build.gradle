@@ -46,12 +46,9 @@ dependencies {
     implementation libs.bundles.coroutines
     implementation libs.bundles.retrofit
     implementation libs.bundles.navigation
+    implementation libs.hilt.android
+    implementation libs.glide
 
-    implementation "com.google.dagger:hilt-android:2.43.2"
-    kapt "com.google.dagger:hilt-compiler:2.43.2"
-
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.0'
-
-    implementation 'com.github.bumptech.glide:glide:4.13.2'
-    kapt 'com.github.bumptech.glide:compiler:4.13.2'
+    kapt libs.hilt.compiler
+    kapt libs.glide.compiler
 }

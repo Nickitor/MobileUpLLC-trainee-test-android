@@ -1,9 +1,11 @@
 [versions]
 lifecycle-version = '2.5.1'
 coroutines-version = "1.6.1"
-hilt-version = "2.41"
+hilt-version = "2.43.2"
 retrofit-version = "2.9.0"
+logging-interceptor-version = "4.8.0"
 nav-version = "2.5.1"
+glide-version = "4.13.2"
 
 [libraries]
 lifecycle-viewmodel-ktx = { group = 'androidx.lifecycle', name = 'lifecycle-viewmodel-ktx', version.ref = 'lifecycle_version' }
@@ -17,12 +19,16 @@ hilt-compiler = { group = 'com.google.dagger', name = 'hilt-compiler', version.r
 
 retrofit = { group = 'com.squareup.retrofit2', name = 'retrofit', version.ref = 'retrofit-version' }
 gson = { group = 'com.squareup.retrofit2', name = 'converter-gson', version.ref = 'retrofit-version' }
+logging-interceptor = { group = 'com.squareup.okhttp3', name = 'logging-interceptor', version.ref = 'logging-interceptor-version' }
 
 navigation-fragment-ktx = { group = 'androidx.navigation', name = 'navigation-fragment-ktx', version.ref = 'nav-version' }
 navigation-ui-ktx = { group = 'androidx.navigation', name = 'navigation-ui-ktx', version.ref = 'nav-version' }
 
+glide = { group = 'com.github.bumptech.glide', name = 'glide', version.ref = 'glide-version' }
+glide-compiler = { group = 'com.github.bumptech.glide', name = 'compiler', version.ref = 'glide-version' }
+
 [bundles]
 lifecycle = ['lifecycle-viewmodel-ktx', 'lifecycle-runtime-ktx']
 coroutines = ['coroutines-core', 'coroutines-android']
-retrofit = ['retrofit', 'gson']
+retrofit = ['retrofit', 'gson', 'logging-interceptor']
 navigation = ['navigation-fragment-ktx', 'navigation-ui-ktx']
