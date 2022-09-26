@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:paddingStart="16dp"
     android:paddingTop="8dp"
     android:paddingEnd="16dp"
@@ -29,12 +28,16 @@
             android:id="@+id/item_coin_list_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="16sp"
             tools:text="Bitcoin" />
 
         <TextView
             android:id="@+id/item_coin_list_symbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textSize="14sp"
             tools:text="BTC" />
 
     </LinearLayout>
@@ -51,12 +54,17 @@
             android:id="@+id/item_coin_list_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="16sp"
             tools:text="$28,600.74" />
 
         <TextView
             android:id="@+id/item_coin_list_percentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/red"
+            android:textSize="14sp"
             tools:text="+4.05%" />
 
     </LinearLayout>

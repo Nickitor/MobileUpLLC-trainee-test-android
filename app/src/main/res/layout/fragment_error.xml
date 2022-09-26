@@ -16,8 +16,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
+        android:fontFamily="@font/roboto"
         android:gravity="center"
-        android:text="Случилась какая-то ошибка :(\nПопробуем снова?" />
+        android:text="@string/fragment_error_text"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/fragment_error_button"
@@ -27,7 +29,7 @@
         android:backgroundTint="@color/orange"
         android:gravity="center"
         android:stateListAnimator="@null"
-        android:text="попробовать"
+        android:text="@string/fragment_error_button"
         android:textColor="@color/white"
         android:textSize="14sp" />
 
