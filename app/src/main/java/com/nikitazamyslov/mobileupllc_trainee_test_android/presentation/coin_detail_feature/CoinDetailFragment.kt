@@ -35,6 +35,7 @@ class CoinDetailFragment : Fragment() {
     ): View {
         _binding = FragmentCoinDetailBinding.inflate(inflater, container, false)
         setObservers()
+        setListeners()
         viewModel.getCoinDetail(arguments?.getString("id"))
         return binding.root
     }
@@ -46,6 +47,12 @@ class CoinDetailFragment : Fragment() {
                     updateUi(state)
                 }
             }
+        }
+    }
+
+    private fun setListeners() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
@@ -62,9 +69,11 @@ class CoinDetailFragment : Fragment() {
                 state.data.apply {
                     Glide.with(binding.fragmentCoinDetailImage).load(image.large)
                         .into(binding.fragmentCoinDetailImage)
-                    binding.fragmentCoinDetailDescription.text = description.english
-                    binding.fragmentCoinDetailCategory.text =
-                        categories.joinToString(", ")
+                    if (description.english.isNotEmpty())
+                        binding.fragmentCoinDetailDescription.text = description.english
+                    if (categories.isNotEmpty())
+                        binding.fragmentCoinDetailCategory.text = categories.joinToString(", ")
+                    binding.toolbar.title = name
                 }
             }
             is ApiResponse.Error -> {
