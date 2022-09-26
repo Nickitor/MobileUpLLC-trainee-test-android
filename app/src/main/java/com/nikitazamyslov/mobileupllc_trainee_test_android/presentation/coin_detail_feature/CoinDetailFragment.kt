@@ -14,6 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.nikitazamyslov.mobileupllc_trainee_test_android.R
 import com.nikitazamyslov.mobileupllc_trainee_test_android.databinding.FragmentCoinDetailBinding
+import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinDetail
+import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinPrice
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.wrapper.ApiResponse
 import com.nikitazamyslov.mobileupllc_trainee_test_android.presentation.coin_list_feature.CoinListAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,28 +43,32 @@ class CoinDetailFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
-                    when (state) {
-                        is ApiResponse.Loading -> {
-                            binding.fragmentCoinDetailProgressBar.visibility = View.VISIBLE
-                            binding.fragmentCoinDetailScrollView.visibility = View.INVISIBLE
-                        }
-                        is ApiResponse.Success -> {
-                            binding.fragmentCoinDetailProgressBar.visibility = View.INVISIBLE
-                            binding.fragmentCoinDetailScrollView.visibility = View.VISIBLE
-
-                            state.data.apply {
-                                Glide.with(binding.fragmentCoinDetailImage).load(image.large)
-                                    .into(binding.fragmentCoinDetailImage)
-                                binding.fragmentCoinDetailDescription.text = description.english
-                                binding.fragmentCoinDetailCategory.text =
-                                    categories.joinToString(", ")
-                            }
-                        }
-                        is ApiResponse.Error -> {
-                            findNavController().navigate(R.id.action_global_to_ErrorFragment)
-                        }
-                    }
+                    updateUi(state)
                 }
+            }
+        }
+    }
+
+    private fun updateUi(state: ApiResponse<CoinDetail>) {
+        when (state) {
+            is ApiResponse.Loading -> {
+                binding.fragmentCoinDetailProgressBar.visibility = View.VISIBLE
+                binding.fragmentCoinDetailScrollView.visibility = View.INVISIBLE
+            }
+            is ApiResponse.Success -> {
+                binding.fragmentCoinDetailProgressBar.visibility = View.INVISIBLE
+                binding.fragmentCoinDetailScrollView.visibility = View.VISIBLE
+
+                state.data.apply {
+                    Glide.with(binding.fragmentCoinDetailImage).load(image.large)
+                        .into(binding.fragmentCoinDetailImage)
+                    binding.fragmentCoinDetailDescription.text = description.english
+                    binding.fragmentCoinDetailCategory.text =
+                        categories.joinToString(", ")
+                }
+            }
+            is ApiResponse.Error -> {
+                findNavController().navigate(R.id.action_global_to_ErrorFragment)
             }
         }
     }
