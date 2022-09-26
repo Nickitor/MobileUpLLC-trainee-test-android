@@ -11,8 +11,9 @@ import com.nikitazamyslov.mobileupllc_trainee_test_android.R
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinPrice
 import java.util.*
 
-class CoinListAdapter(private val dataSet: List<CoinPrice>) :
-    RecyclerView.Adapter<CoinListAdapter.ViewHolder>() {
+class CoinListAdapter(
+    private val dataSet: List<CoinPrice>, private val itemClickListener: OnItemClickListener
+) : RecyclerView.Adapter<CoinListAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val icon: ImageView
@@ -28,6 +29,19 @@ class CoinListAdapter(private val dataSet: List<CoinPrice>) :
             price = view.findViewById(R.id.item_coin_list_price)
             percentage = view.findViewById(R.id.item_coin_list_percentage)
         }
+
+        fun bind(coin: CoinPrice, clickListener: OnItemClickListener) {
+            Glide.with(icon).load(coin.image).into(icon)
+
+            name.text = coin.name
+            symbol.text = coin.symbol.uppercase(Locale.ROOT)
+            price.text = coin.currentPrice.toString()
+            percentage.text = coin.priceChangePercentage.toString()
+
+            itemView.setOnClickListener {
+                clickListener.onItemClicked(coin.id)
+            }
+        }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -39,14 +53,7 @@ class CoinListAdapter(private val dataSet: List<CoinPrice>) :
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
-        Glide.with(viewHolder.icon)
-            .load(dataSet[position].image)
-            .into(viewHolder.icon)
-
-        viewHolder.name.text = dataSet[position].name
-        viewHolder.symbol.text = dataSet[position].symbol.uppercase(Locale.ROOT)
-        viewHolder.price.text = dataSet[position].currentPrice.toString()
-        viewHolder.percentage.text = dataSet[position].priceChangePercentage.toString()
+        viewHolder.bind(dataSet[position], itemClickListener)
     }
 
     override fun getItemCount() = dataSet.size

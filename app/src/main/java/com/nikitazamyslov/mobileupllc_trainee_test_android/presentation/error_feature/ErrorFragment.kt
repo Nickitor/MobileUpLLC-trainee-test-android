@@ -31,7 +31,7 @@ class ErrorFragment : Fragment() {
 
     private fun setListeners() {
         binding.fragmentErrorButton.setOnClickListener {
-            findNavController().navigate(R.id.action_errorFragment_to_coinListFragment)
+            findNavController().popBackStack()
         }
     }
 

@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.nikitazamyslov.mobileupllc_trainee_test_android.R
 import com.nikitazamyslov.mobileupllc_trainee_test_android.databinding.FragmentCoinListBinding
@@ -18,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CoinListFragment : Fragment() {
+class CoinListFragment : Fragment(), OnItemClickListener {
 
     private var _binding: FragmentCoinListBinding? = null
     private val binding get() = _binding!!
@@ -26,14 +28,11 @@ class CoinListFragment : Fragment() {
     private val viewModel: CoinListViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCoinListBinding.inflate(inflater, container, false)
-
         setObservers()
-
+        viewModel.getCoinList("usd")
         return binding.root
     }
 
@@ -47,11 +46,11 @@ class CoinListFragment : Fragment() {
                         }
                         is ApiResponse.Success -> {
                             binding.fragmentCoinListProgressBar.visibility = ProgressBar.INVISIBLE
-                            binding.fragmentCoinListRv.adapter = CoinListAdapter(state.data)
+                            binding.fragmentCoinListRv.adapter =
+                                CoinListAdapter(state.data, this@CoinListFragment)
                         }
                         is ApiResponse.Error -> {
-                            binding.fragmentCoinListProgressBar.visibility = ProgressBar.INVISIBLE
-                            findNavController().navigate(R.id.action_coinListFragment_to_errorFragment)
+                            findNavController().navigate(R.id.action_global_to_ErrorFragment)
                         }
                     }
                 }
@@ -62,5 +61,10 @@ class CoinListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClicked(id: String) {
+        val bundle = bundleOf("id" to id)
+        findNavController().navigate(R.id.action_coinListFragment_to_coinDetailFragment, bundle)
     }
 }

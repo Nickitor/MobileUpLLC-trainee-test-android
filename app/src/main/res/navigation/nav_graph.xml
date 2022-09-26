@@ -5,11 +5,20 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/coinListFragment">
 
+    <action
+        android:id="@+id/action_global_to_ErrorFragment"
+        app:destination="@id/errorFragment"
+        app:launchSingleTop="true" />
+
     <fragment
         android:id="@+id/coinDetailFragment"
         android:name="com.nikitazamyslov.mobileupllc_trainee_test_android.presentation.coin_detail_feature.CoinDetailFragment"
         android:label="fragment_coin_detail"
-        tools:layout="@layout/fragment_coin_detail" />
+        tools:layout="@layout/fragment_coin_detail">
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/coinListFragment"
         android:name="com.nikitazamyslov.mobileupllc_trainee_test_android.presentation.coin_list_feature.CoinListFragment"
@@ -18,21 +27,10 @@
         <action
             android:id="@+id/action_coinListFragment_to_coinDetailFragment"
             app:destination="@id/coinDetailFragment" />
-        <action
-            android:id="@+id/action_coinListFragment_to_errorFragment"
-            app:destination="@id/errorFragment"
-            app:popUpTo="@id/coinListFragment"
-            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/errorFragment"
         android:name="com.nikitazamyslov.mobileupllc_trainee_test_android.presentation.error_feature.ErrorFragment"
         android:label="fragment_error"
-        tools:layout="@layout/fragment_error">
-        <action
-            android:id="@+id/action_errorFragment_to_coinListFragment"
-            app:destination="@id/coinListFragment"
-            app:popUpTo="@id/errorFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+        tools:layout="@layout/fragment_error" />
 </navigation>

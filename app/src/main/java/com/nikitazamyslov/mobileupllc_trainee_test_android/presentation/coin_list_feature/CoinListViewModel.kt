@@ -6,6 +6,7 @@ import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinPri
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.usecase.GetCoinListUseCase
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.wrapper.ApiResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,18 +15,14 @@ import javax.inject.Inject
 class CoinListViewModel @Inject constructor(private val getCoinListUseCase: GetCoinListUseCase) :
     ViewModel() {
 
-    private var _state: MutableStateFlow<ApiResponse<List<CoinPrice>>> =
-        MutableStateFlow(ApiResponse.Loading)
+    private var _state: MutableSharedFlow<ApiResponse<List<CoinPrice>>> = MutableSharedFlow(1)
     val state get() = _state
 
-    init {
-        getCoinList()
-    }
-
-    fun getCoinList() {
+    fun getCoinList(currency: String) {
         viewModelScope.launch {
-            getCoinListUseCase.getCoinListUseCase("usd").collect { coinList ->
-                _state.value = coinList
+            _state.emit(ApiResponse.Loading)
+            getCoinListUseCase.getCoinListUseCase(currency).collect { coinList ->
+                _state.emit(coinList)
             }
         }
     }

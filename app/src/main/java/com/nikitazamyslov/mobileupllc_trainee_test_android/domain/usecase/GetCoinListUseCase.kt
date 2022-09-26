@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class GetCoinListUseCase @Inject constructor(private val repository: ICoinRepository) {
 
-    suspend fun getCoinListUseCase(id: String) = repository.getCoinList(id)
+    suspend fun getCoinListUseCase(currency: String) = repository.getCoinList(currency)
 }
