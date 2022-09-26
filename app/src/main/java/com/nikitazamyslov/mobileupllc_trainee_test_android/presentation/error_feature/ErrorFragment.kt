@@ -1,16 +1,12 @@
 package com.nikitazamyslov.mobileupllc_trainee_test_android.presentation.error_feature
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.nikitazamyslov.mobileupllc_trainee_test_android.R
-import com.nikitazamyslov.mobileupllc_trainee_test_android.databinding.FragmentCoinDetailBinding
 import com.nikitazamyslov.mobileupllc_trainee_test_android.databinding.FragmentErrorBinding
-import com.nikitazamyslov.mobileupllc_trainee_test_android.presentation.coin_detail_feature.CoinDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

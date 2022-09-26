@@ -7,9 +7,7 @@ import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.usecase.GetCoi
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.wrapper.ApiResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import java.util.Currency
 import javax.inject.Inject
 
 @HiltViewModel

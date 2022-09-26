@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -15,9 +14,7 @@ import com.bumptech.glide.Glide
 import com.nikitazamyslov.mobileupllc_trainee_test_android.R
 import com.nikitazamyslov.mobileupllc_trainee_test_android.databinding.FragmentCoinDetailBinding
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinDetail
-import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinPrice
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.wrapper.ApiResponse
-import com.nikitazamyslov.mobileupllc_trainee_test_android.presentation.coin_list_feature.CoinListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.lang.Thread.State
@@ -31,7 +28,9 @@ class CoinDetailFragment : Fragment() {
     private val viewModel: CoinDetailViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCoinDetailBinding.inflate(inflater, container, false)
         setObservers()

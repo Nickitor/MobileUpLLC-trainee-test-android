@@ -11,11 +11,12 @@ import com.bumptech.glide.Glide
 import com.nikitazamyslov.mobileupllc_trainee_test_android.R
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinPrice
 import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 import kotlin.math.abs
 
 class CoinListAdapter(
-    private val dataSet: List<CoinPrice>, private val itemClickListener: OnItemClickListener
+    private val dataSet: List<CoinPrice>,
+    private val itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<CoinListAdapter.ViewHolder>() {
 
     private val priceFormatUSD: NumberFormat = NumberFormat.getCurrencyInstance(Locale("es", "MX"))

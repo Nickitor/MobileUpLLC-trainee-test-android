@@ -3,12 +3,10 @@ package com.nikitazamyslov.mobileupllc_trainee_test_android.presentation.coin_de
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinDetail
-import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinPrice
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.usecase.GetCoinDetailUseCase
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.wrapper.ApiResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

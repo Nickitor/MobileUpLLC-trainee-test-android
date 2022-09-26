@@ -29,7 +29,9 @@ class CoinListFragment : Fragment(), OnItemClickListener {
     private val viewModel: CoinListViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCoinListBinding.inflate(inflater, container, false)
         setObservers()
@@ -52,9 +54,13 @@ class CoinListFragment : Fragment(), OnItemClickListener {
         binding.chipGroupFilter.setOnCheckedChangeListener { group, checkedId ->
             viewModel.currentCurrencyChanged((group.findViewById<Chip>(checkedId).text.toString()))
         }
+        binding.fragmentCoinListSwipeRefreshLayout.setOnRefreshListener {
+            viewModel.getCoinList()
+        }
     }
 
     private fun updateUi(state: ApiResponse<List<CoinPrice>>) {
+        binding.fragmentCoinListSwipeRefreshLayout.isRefreshing = false
         when (state) {
             is ApiResponse.Loading -> {
                 binding.fragmentCoinListProgressBar.visibility = ProgressBar.VISIBLE
