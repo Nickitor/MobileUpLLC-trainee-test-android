@@ -6,6 +6,7 @@ retrofit-version = "2.9.0"
 logging-interceptor-version = "4.8.0"
 nav-version = "2.5.1"
 glide-version = "4.13.2"
+swiperefreshlayout-version = "1.1.0"
 
 [libraries]
 lifecycle-viewmodel-ktx = { group = 'androidx.lifecycle', name = 'lifecycle-viewmodel-ktx', version.ref = 'lifecycle_version' }
@@ -26,6 +27,8 @@ navigation-ui-ktx = { group = 'androidx.navigation', name = 'navigation-ui-ktx',
 
 glide = { group = 'com.github.bumptech.glide', name = 'glide', version.ref = 'glide-version' }
 glide-compiler = { group = 'com.github.bumptech.glide', name = 'compiler', version.ref = 'glide-version' }
+
+swiperefreshlayout = { group = 'androidx.swiperefreshlayout', name = 'swiperefreshlayout', version.ref = 'swiperefreshlayout-version' }
 
 [bundles]
 lifecycle = ['lifecycle-viewmodel-ktx', 'lifecycle-runtime-ktx']

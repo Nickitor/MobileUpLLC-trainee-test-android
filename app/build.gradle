@@ -48,6 +48,7 @@ dependencies {
     implementation libs.bundles.navigation
     implementation libs.hilt.android
     implementation libs.glide
+    implementation libs.swiperefreshlayout
 
     kapt libs.hilt.compiler
     kapt libs.glide.compiler
