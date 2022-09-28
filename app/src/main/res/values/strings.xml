@@ -6,7 +6,7 @@
     <string name="fragment_error_text">Случилась какая-то ошибка :(\nПопробуем снова?</string>
     <string name="usd">USD</string>
     <string name="eur">EUR</string>
-    <string name="toolbar_titile">Список криптовалют</string>
+    <string name="toolbar_title">Список криптовалют</string>
     <string name="fragment_coin_description_empty">Нет описания :(</string>
     <string name="fragment_coin_detail_category_empty">Нет категорий :(</string>
 </resources>

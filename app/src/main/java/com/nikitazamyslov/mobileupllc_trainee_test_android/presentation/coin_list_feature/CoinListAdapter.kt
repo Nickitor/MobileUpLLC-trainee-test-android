@@ -58,7 +58,7 @@ class CoinListAdapter(
             }.format(coin.currentPrice)
 
             val percentageStr = "${if (coin.priceChangePercentage > 0) "+" else "-"} ${
-                "%,.2f".format(Locale.ENGLISH, abs(coin.priceChangePercentage))
+            "%,.2f".format(Locale.ENGLISH, abs(coin.priceChangePercentage))
             }%"
             percentage.text = percentageStr
             percentage.setTextColor(
