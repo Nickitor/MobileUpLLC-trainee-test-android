@@ -28,12 +28,15 @@ class CoinListFragment : Fragment(), OnItemClickListener {
 
     private val viewModel: CoinListViewModel by viewModels()
 
+    private var adapter = CoinListAdapter(listOf(), this)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCoinListBinding.inflate(inflater, container, false)
+        binding.fragmentCoinListRv.adapter = adapter
         setObservers()
         setListeners()
         viewModel.getCoinList()
@@ -68,8 +71,7 @@ class CoinListFragment : Fragment(), OnItemClickListener {
             is ApiResponse.Success -> {
                 binding.fragmentCoinListProgressBar.visibility = ProgressBar.INVISIBLE
                 state.data.map { it.currency = viewModel.currency }
-                binding.fragmentCoinListRv.adapter =
-                    CoinListAdapter(state.data, this@CoinListFragment)
+                adapter.setData(state.data)
             }
             is ApiResponse.Error -> {
                 findNavController().navigate(R.id.action_global_to_ErrorFragment)

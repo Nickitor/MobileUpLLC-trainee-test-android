@@ -15,12 +15,17 @@ import java.util.Locale
 import kotlin.math.abs
 
 class CoinListAdapter(
-    private val dataSet: List<CoinPrice>,
+    private var dataSet: List<CoinPrice>,
     private val itemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<CoinListAdapter.ViewHolder>() {
 
     private val priceFormatUSD: NumberFormat = NumberFormat.getCurrencyInstance(Locale("es", "MX"))
     private val priceFormatEUR: NumberFormat = NumberFormat.getCurrencyInstance(Locale("en", "FR"))
+
+    fun setData(newDataset: List<CoinPrice>) {
+        dataSet = newDataset
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val icon: ImageView
