@@ -22,7 +22,7 @@ class CoinListAdapter(
     private val priceFormatUSD: NumberFormat = NumberFormat.getCurrencyInstance(Locale("es", "MX"))
     private val priceFormatEUR: NumberFormat = NumberFormat.getCurrencyInstance(Locale("en", "FR"))
 
-    inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val icon: ImageView
         private val name: TextView
         private val symbol: TextView
@@ -40,7 +40,7 @@ class CoinListAdapter(
         }
 
         fun bind(coin: CoinPrice, clickListener: OnItemClickListener) {
-            Glide.with(icon).load(coin.image).into(icon)
+            Glide.with(itemView).load(coin.image).into(icon)
 
             name.text = coin.name
             symbol.text = coin.symbol.uppercase(Locale.ROOT)
@@ -58,7 +58,7 @@ class CoinListAdapter(
             percentage.text = percentageStr
             percentage.setTextColor(
                 ContextCompat.getColor(
-                    view.context,
+                    itemView.context,
                     if (coin.priceChangePercentage >= 0) R.color.green else R.color.red
                 )
             )
@@ -70,14 +70,13 @@ class CoinListAdapter(
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.item_coin_list, viewGroup, false)
-
-        return ViewHolder(view)
+        return ViewHolder(
+            LayoutInflater.from(viewGroup.context)
+                .inflate(R.layout.item_coin_list, viewGroup, false)
+        )
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-
         viewHolder.bind(dataSet[position], itemClickListener)
     }
 
