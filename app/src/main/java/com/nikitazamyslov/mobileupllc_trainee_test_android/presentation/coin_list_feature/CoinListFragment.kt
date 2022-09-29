@@ -21,14 +21,14 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CoinListFragment : Fragment(), OnItemClickListener {
+class CoinListFragment : Fragment() {
 
     private var _binding: FragmentCoinListBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: CoinListViewModel by viewModels()
 
-    private var adapter = CoinListAdapter(listOf(), this)
+    private var adapter = CoinListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,10 +36,9 @@ class CoinListFragment : Fragment(), OnItemClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCoinListBinding.inflate(inflater, container, false)
-        binding.fragmentCoinListRv.adapter = adapter
+        setRecyclerView()
         setObservers()
         setListeners()
-        viewModel.getCoinList()
         return binding.root
     }
 
@@ -50,6 +49,14 @@ class CoinListFragment : Fragment(), OnItemClickListener {
                     updateUi(state)
                 }
             }
+        }
+    }
+
+    private fun setRecyclerView() {
+        binding.fragmentCoinListRv.adapter = adapter
+        adapter.onItemClickListener = {
+            val bundle = bundleOf("id" to it)
+            findNavController().navigate(R.id.action_coinListFragment_to_coinDetailFragment, bundle)
         }
     }
 
@@ -71,7 +78,7 @@ class CoinListFragment : Fragment(), OnItemClickListener {
             is ApiResponse.Success -> {
                 binding.fragmentCoinListProgressBar.visibility = ProgressBar.INVISIBLE
                 state.data.map { it.currency = viewModel.currency }
-                adapter.setData(state.data)
+                adapter.dataSet = state.data
             }
             is ApiResponse.Error -> {
                 findNavController().navigate(R.id.action_global_to_ErrorFragment)
@@ -82,10 +89,5 @@ class CoinListFragment : Fragment(), OnItemClickListener {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onItemClicked(id: String) {
-        val bundle = bundleOf("id" to id)
-        findNavController().navigate(R.id.action_coinListFragment_to_coinDetailFragment, bundle)
     }
 }

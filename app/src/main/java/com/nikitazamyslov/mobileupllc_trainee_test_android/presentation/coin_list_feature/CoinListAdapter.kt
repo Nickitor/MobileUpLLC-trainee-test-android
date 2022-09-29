@@ -14,18 +14,18 @@ import java.text.NumberFormat
 import java.util.Locale
 import kotlin.math.abs
 
-class CoinListAdapter(
-    private var dataSet: List<CoinPrice>,
-    private val itemClickListener: OnItemClickListener
-) : RecyclerView.Adapter<CoinListAdapter.ViewHolder>() {
+class CoinListAdapter : RecyclerView.Adapter<CoinListAdapter.ViewHolder>() {
 
     private val priceFormatUSD: NumberFormat = NumberFormat.getCurrencyInstance(Locale("es", "MX"))
     private val priceFormatEUR: NumberFormat = NumberFormat.getCurrencyInstance(Locale("en", "FR"))
 
-    fun setData(newDataset: List<CoinPrice>) {
-        dataSet = newDataset
-        notifyDataSetChanged()
-    }
+    var onItemClickListener: ((id: String) -> Unit)? = null
+
+    var dataSet = listOf<CoinPrice>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val icon: ImageView
@@ -44,7 +44,7 @@ class CoinListAdapter(
             }
         }
 
-        fun bind(coin: CoinPrice, clickListener: OnItemClickListener) {
+        fun bind(coin: CoinPrice) {
             Glide.with(itemView).load(coin.image).into(icon)
 
             name.text = coin.name
@@ -58,7 +58,7 @@ class CoinListAdapter(
             }.format(coin.currentPrice)
 
             val percentageStr = "${if (coin.priceChangePercentage > 0) "+" else "-"} ${
-            "%,.2f".format(Locale.ENGLISH, abs(coin.priceChangePercentage))
+                "%,.2f".format(Locale.ENGLISH, abs(coin.priceChangePercentage))
             }%"
             percentage.text = percentageStr
             percentage.setTextColor(
@@ -69,7 +69,7 @@ class CoinListAdapter(
             )
 
             itemView.setOnClickListener {
-                clickListener.onItemClicked(coin.id)
+                onItemClickListener?.invoke(coin.id)
             }
         }
     }
@@ -82,7 +82,7 @@ class CoinListAdapter(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.bind(dataSet[position], itemClickListener)
+        viewHolder.bind(dataSet[position])
     }
 
     override fun getItemCount() = dataSet.size

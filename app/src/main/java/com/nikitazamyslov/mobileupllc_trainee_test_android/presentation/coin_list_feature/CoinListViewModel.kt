@@ -19,6 +19,10 @@ class CoinListViewModel @Inject constructor(private val getCoinListUseCase: GetC
 
     var currency = "USD"
 
+    init {
+        getCoinList()
+    }
+
     fun getCoinList() {
         viewModelScope.launch {
             _state.emit(ApiResponse.Loading)
