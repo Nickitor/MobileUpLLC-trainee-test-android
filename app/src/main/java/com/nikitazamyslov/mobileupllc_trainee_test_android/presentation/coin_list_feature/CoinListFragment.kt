@@ -17,6 +17,7 @@ import com.nikitazamyslov.mobileupllc_trainee_test_android.R
 import com.nikitazamyslov.mobileupllc_trainee_test_android.databinding.FragmentCoinListBinding
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.entity.CoinPrice
 import com.nikitazamyslov.mobileupllc_trainee_test_android.domain.wrapper.ApiResponse
+import com.nikitazamyslov.mobileupllc_trainee_test_android.presentation.coin_list_feature.adapter.CoinListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -78,7 +79,7 @@ class CoinListFragment : Fragment() {
             is ApiResponse.Success -> {
                 binding.fragmentCoinListProgressBar.visibility = ProgressBar.INVISIBLE
                 state.data.map { it.currency = viewModel.currency }
-                adapter.dataSet = state.data
+                adapter.submitList(state.data)
             }
             is ApiResponse.Error -> {
                 findNavController().navigate(R.id.action_global_to_ErrorFragment)
