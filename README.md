@@ -1,6 +1,15 @@
 # MobileUpLLC-trainee-test-android
 
-Трекер задач: https://peppermint-twig-d02.notion.site/MobileUpLLC-trainee-test-android-3fca9a4ac1e14e5d9dd372a831a5753b
+## Описание
+Приложение для отображения списка криптовалют с актуальным курсом, а также подробной информацией о выбранной валюте.
+
+## Стэк
+Kotlin, MVVM+MVI, Hilt, Retrofit, Coroutines, Flow.
+
+## Трекер задач
+В процессе разработки использовался собственный трекер задач в Notion. Ссылка: https://peppermint-twig-d02.notion.site/MobileUpLLC-trainee-test-android-3fca9a4ac1e14e5d9dd372a831a5753b.
+
+## Оценка задач
 
 Задачи (540 мин = 9 ч)
 1. Подготовка (30 мин)
